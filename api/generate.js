@@ -93,15 +93,13 @@ module.exports = async (req, res) => {
         // Criar transação no PagFlex
         const authHeader = getAuthHeader();
 
-        // Tentar formato em centavos primeiro, depois em reais se falhar
+        // PagFlex espera o valor em REAIS, não em centavos!
+        const amountInReais = amount_cents / 100;
+
         const requestData = {
-            amount: amount_cents, // PagFlex pode esperar em centavos
+            amount: amountInReais,  // Valor em REAIS (ex: 50.00)
             payment_method: 'pix',
-            description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`,
-            customer: {
-                name: 'Doador Anônimo',
-                email: 'doador@orfanatostaclara.org'
-            }
+            description: `Doação Orfanato Santa Clara - R$ ${amountInReais.toFixed(2)}`
         };
 
         console.log('[PagFlex] Request data:', JSON.stringify(requestData));
