@@ -89,18 +89,28 @@ module.exports = async (req, res) => {
         }
 
         console.log(`[PagFlex] Gerando PIX de R$ ${(amount_cents / 100).toFixed(2)}...`);
-        console.log(`[PagFlex] Credenciais: ${process.env.PAGFLEX_SECRET_KEY ? 'SECRET_KEY OK' : 'SECRET_KEY MISSING'}, ${process.env.PAGFLEX_COMPANY_ID ? 'COMPANY_ID OK' : 'COMPANY_ID MISSING'}`);
+        console.log(`[PagFlex] Amount em centavos: ${amount_cents}`);
 
         // Criar transação no PagFlex
         const authHeader = getAuthHeader();
 
-        // PagFlex espera o valor em REAIS, não em centavos!
-        const amountInReais = amount_cents / 100;
-
+        // Formato correto conforme documentação PagFlex
         const requestData = {
-            amount: amountInReais,  // Valor em REAIS (ex: 50.00)
-            payment_method: 'pix',
-            description: `Doação Orfanato Santa Clara - R$ ${amountInReais.toFixed(2)}`
+            customer: {
+                name: "Doador Anônimo",
+                email: "doador@orfanatostaclara.org",
+                document: "00000000000"
+            },
+            paymentMethod: "PIX",  // Deve ser maiúsculo
+            items: [
+                {
+                    title: "Doação para Orfanato Santa Clara",
+                    unitPrice: amount_cents,  // Em CENTAVOS
+                    quantity: 1
+                }
+            ],
+            amount: amount_cents,  // Total em CENTAVOS (obrigatório)
+            description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`
         };
 
         console.log('[PagFlex] Request data:', JSON.stringify(requestData));
