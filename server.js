@@ -14,17 +14,29 @@ app.use(express.json());
 app.use(express.static('.')); // Serve arquivos estáticos do diretório atual
 
 // Validar variáveis de ambiente
-if (!process.env.PAGFLEX_SECRET_KEY || !process.env.PAGFLEX_COMPANY_ID) {
-    console.error('❌ ERRO: Variáveis de ambiente PAGFLEX_SECRET_KEY e PAGFLEX_COMPANY_ID são obrigatórias!');
-    console.log('📝 Crie um arquivo .env baseado no .env.example e adicione suas credenciais.');
-    process.exit(1);
+const hasCredentials = process.env.PAGFLEX_SECRET_KEY &&
+    process.env.PAGFLEX_COMPANY_ID &&
+    process.env.PAGFLEX_SECRET_KEY.trim() !== '' &&
+    process.env.PAGFLEX_COMPANY_ID.trim() !== '';
+
+if (!hasCredentials) {
+    console.warn('');
+    console.warn('⚠️  ═══════════════════════════════════════════════');
+    console.warn('⚠️  AVISO: Credenciais do PagFlex NÃO configuradas!');
+    console.warn('⚠️  ═══════════════════════════════════════════════');
+    console.warn('📝 Edite o arquivo .env e adicione suas credenciais.');
+    console.warn('🔑 PAGFLEX_SECRET_KEY e PAGFLEX_COMPANY_ID estão vazios.');
+    console.warn('');
+    console.warn('🧪 Servidor rodando em MODO DE TESTE');
+    console.warn('❌ A API NÃO funcionará até você adicionar as chaves!');
+    console.warn('');
 }
 
 // Inicializar serviço PagFlex
-const pagflex = new PagFlexService(
+const pagflex = hasCredentials ? new PagFlexService(
     process.env.PAGFLEX_SECRET_KEY,
     process.env.PAGFLEX_COMPANY_ID
-);
+) : null;
 
 // Armazenamento temporário de transações (em produção, use um banco de dados)
 const transactions = new Map();
@@ -36,6 +48,15 @@ const transactions = new Map();
 app.post('/api/generate', async (req, res) => {
     try {
         const { amount_cents } = req.body;
+
+        // Verificar se credenciais foram configuradas
+        if (!hasCredentials || !pagflex) {
+            console.error('❌ Tentativa de gerar PIX sem credenciais configuradas');
+            return res.status(503).json({
+                ok: false,
+                error: 'Servidor em modo de teste. Configure as credenciais do PagFlex no arquivo .env'
+            });
+        }
 
         // Validar valor
         const validation = validateDonationAmount(amount_cents);
