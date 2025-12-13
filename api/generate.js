@@ -142,13 +142,14 @@ module.exports = async (req, res) => {
         }
         console.log('[PagFlex] ============================================');
 
-        // Extrair código PIX - testando várias possibilidades
-        const pixCode = transaction.pix_code ||
+        // CÓDIGO PIX está em transaction.pix.qrcode (minúsculo, conforme documentação real)
+        const pixCode = transaction.pix?.qrcode ||
+            transaction.pix?.qr_code ||
+            transaction.pix_code ||
             transaction.qr_code ||
             transaction.data?.pix_code ||
             transaction.data?.qr_code ||
             transaction.qr_code_text ||
-            transaction.pix?.qr_code ||
             transaction.pix?.code ||
             transaction.pix?.qrCode ||
             transaction.payment?.pix_code ||
