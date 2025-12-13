@@ -1,27 +1,8 @@
 {
-    "version": 2,
-    "builds": [
+    "rewrites": [
         {
-            "src": "api/**/*.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "index.html",
-            "use": "@vercel/static"
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
         }
-    ],
-    "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "/api/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
-        }
-    ],
-    "env": {
-        "PAGFLEX_SECRET_KEY": "@pagflex_secret_key",
-        "PAGFLEX_COMPANY_ID": "@pagflex_company_id"
-    }
+    ]
 }
