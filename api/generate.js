@@ -3,6 +3,7 @@ const QRCode = require('qrcode');
 
 // Configurações do PagFlex
 const PAGFLEX_API_URL = 'https://api.pagflexbrasil.com/functions/v1';
+// Last updated: 2025-12-13T14:17:00 - CONVERTENDO PARA REAIS
 
 /**
  * Gera credenciais Base64 para autenticação Basic
