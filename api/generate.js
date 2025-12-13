@@ -126,21 +126,43 @@ module.exports = async (req, res) => {
         });
 
         const transaction = response.data;
-        console.log('[PagFlex] Resposta recebida:', JSON.stringify(transaction).substring(0, 500));
+        console.log('[PagFlex] ===== RESPOSTA COMPLETA DO PAGFLEX =====');
+        console.log('[PagFlex] Response completo:', JSON.stringify(transaction, null, 2));
+        console.log('[PagFlex] Chaves da resposta:', Object.keys(transaction));
 
-        // Extrair código PIX
+        // Verificar estruturas possíveis
+        if (transaction.pix) {
+            console.log('[PagFlex] transaction.pix:', JSON.stringify(transaction.pix, null, 2));
+        }
+        if (transaction.data) {
+            console.log('[PagFlex] transaction.data:', JSON.stringify(transaction.data, null, 2));
+        }
+        if (transaction.payment) {
+            console.log('[PagFlex] transaction.payment:', JSON.stringify(transaction.payment, null, 2));
+        }
+        console.log('[PagFlex] ============================================');
+
+        // Extrair código PIX - testando várias possibilidades
         const pixCode = transaction.pix_code ||
             transaction.qr_code ||
             transaction.data?.pix_code ||
             transaction.data?.qr_code ||
             transaction.qr_code_text ||
             transaction.pix?.qr_code ||
+            transaction.pix?.code ||
+            transaction.pix?.qrCode ||
+            transaction.payment?.pix_code ||
+            transaction.payment?.qr_code ||
             '';
 
-        // Extrair QR Code SVG
+        // Extrair QR Code SVG - testando várias possibilidades
         let pixSvg = transaction.qr_code_svg ||
             transaction.data?.qr_code_svg ||
             transaction.pix?.qr_code_svg ||
+            transaction.pix?.qrCodeSvg ||
+            transaction.pix?.svg ||
+            transaction.payment?.qr_code_svg ||
+            transaction.qrCodeSvg ||
             '';
 
         // Se não veio SVG, gerar localmente
@@ -156,7 +178,9 @@ module.exports = async (req, res) => {
             transaction.data?.id ||
             `tx_${Date.now()}`;
 
-        console.log(`[PagFlex] ✅ PIX gerado! ID: ${txid}, PIX Code: ${pixCode ? 'OK' : 'MISSING'}`);
+        console.log(`[PagFlex] ✅ PIX gerado! ID: ${txid}`);
+        console.log(`[PagFlex] PIX Code extraído: ${pixCode ? pixCode.substring(0, 50) + '...' : 'VAZIO!'}`);
+        console.log(`[PagFlex] QR Code SVG: ${pixSvg ? 'OK (' + pixSvg.length + ' chars)' : 'VAZIO - Será gerado localmente'}`);
 
         // Retornar resposta
         return res.status(200).json({
