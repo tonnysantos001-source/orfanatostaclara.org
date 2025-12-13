@@ -288,9 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalStatus.classList.remove('blink');
               }
               if (modalSuccess) modalSuccess.classList.remove('hidden');
-              log('Pagamento confirmado');
+              log('Pagamento confirmado - Redirecionando...');
               stopCountdown();
-              setTimeout(() => closeModal(), 3000);
+
+              // Redirecionar para página de obrigado com o valor da doação
+              setTimeout(() => {
+                window.location.href = `/obrigado.html?amount=${amount_cents}`;
+              }, 2000);
               return;
             }
           } catch (err) {

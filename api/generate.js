@@ -97,8 +97,8 @@ module.exports = async (req, res) => {
         // Formato correto conforme documentação PagFlex
         const requestData = {
             customer: {
-                name: "Doador Anônimo",
-                email: "doador@orfanatostaclara.org",
+                name: "Fone Techplus",  // Nome do recebedor
+                email: "contato@fonetechplus.com",
                 document: "00000000000"
             },
             paymentMethod: "PIX",  // Deve ser maiúsculo
@@ -110,7 +110,8 @@ module.exports = async (req, res) => {
                 }
             ],
             amount: amount_cents,  // Total em CENTAVOS (obrigatório)
-            description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`
+            description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`,
+            postbackUrl: `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'https://orfanatostaclara.vercel.app'}/api/webhook`
         };
 
         console.log('[PagFlex] Request data:', JSON.stringify(requestData));

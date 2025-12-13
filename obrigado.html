@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Obrigado pela sua Doação! – Orfanato Santa Clara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --sand-light: #f4e2c3;
+            --sand: #ffffff;
+            --paper: #FFFFFF;
+            --tea: #F3EDE4;
+            --olive-soft: #E8EFE7;
+            --brown: #4A3A2A;
+            --brown-muted: #6A5844;
+            --accent: #C4B08A;
+            --radius-lg: 18px;
+            --shadow-strong: 0 10px 20px rgba(0, 0, 0, 0.08);
+            --shadow-soft: 0 6px 14px rgba(0, 0, 0, 0.06);
+            --max-w: 480px;
+            --donate-green: #2FB07A;
+            --donate-green-dark: #249760;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background: var(--sand-light);
+            color: var(--brown);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: var(--max-w);
+            width: 100%;
+            background: var(--paper);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-strong);
+            padding: 48px 32px;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--donate-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--brown);
+            margin: 0 0 16px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--brown-muted);
+            margin: 0 0 32px;
+            line-height: 1.6;
+        }
+
+        .donation-details {
+            background: var(--tea);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .donation-amount {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--donate-green);
+            margin: 0 0 8px;
+        }
+
+        .donation-label {
+            font-size: 0.9rem;
+            color: var(--brown-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .message-box {
+            background: var(--olive-soft);
+            border-left: 4px solid var(--donate-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .message-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--brown-muted);
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--donate-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(47, 176, 122, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--donate-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(47, 176, 122, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--paper);
+            color: var(--brown);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--tea);
+            border-color: var(--brown);
+        }
+
+        .heart-animation {
+            display: inline-block;
+            color: #e74c3c;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            10%,
+            30% {
+                transform: scale(1.1);
+            }
+
+            20%,
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--accent);
+            font-size: 0.85rem;
+            color: var(--brown-muted);
+        }
+
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 24px 0;
+            font-size: 0.9rem;
+            color: var(--brown-muted);
+        }
+
+        .social-proof svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--donate-green);
+            fill: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 36px 24px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .donation-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Success Icon -->
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+
+        <!-- Main Message -->
+        <h1>Doação Confirmada!</h1>
+        <p class="subtitle">
+            Sua generosidade faz toda a diferença na vida de nossas crianças <span class="heart-animation">❤️</span>
+        </p>
+
+        <!-- Donation Amount -->
+        <div class="donation-details">
+            <p class="donation-label">Você doou</p>
+            <div class="donation-amount" id="donation-amount">R$ 0,00</div>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <svg viewBox="0 0 24 24" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Você está ajudando dezenas de crianças!</span>
+        </div>
+
+        <!-- Thank You Message -->
+        <div class="message-box">
+            <p>
+                <strong>Muito obrigado por sua doação!</strong><br><br>
+                Cada real doado é transformado em alimento, educação, cuidados médicos e principalmente,
+                em esperança e amor para as crianças do Orfanato Santa Clara.
+            </p>
+        </div>
+
+        <!-- Call to Action Buttons -->
+        <div class="cta-buttons">
+            <a href="/" class="btn btn-primary">
+                Voltar para o site
+            </a>
+            <a href="/" class="btn btn-secondary">
+                Fazer outra doação
+            </a>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            <p>
+                💚 Sua doação foi processada com segurança<br>
+                📧 Nenhum recibo será enviado por email (doação anônima)
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Capturar valor da URL se presente
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('amount');
+
+        if (amount) {
+            const amountDisplay = document.getElementById('donation-amount');
+            const valor = parseFloat(amount) / 100;
+            amountDisplay.textContent = valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        }
+
+        // Confete animation (opcional)
+        if (typeof confetti !== 'undefined') {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+
+</html>
