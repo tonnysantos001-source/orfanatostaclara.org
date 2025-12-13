@@ -88,9 +88,23 @@ module.exports = async (req, res) => {
         }
 
         console.log(`[PagFlex] Gerando PIX de R$ ${(amount_cents / 100).toFixed(2)}...`);
+        console.log(`[PagFlex] Credenciais: ${process.env.PAGFLEX_SECRET_KEY ? 'SECRET_KEY OK' : 'SECRET_KEY MISSING'}, ${process.env.PAGFLEX_COMPANY_ID ? 'COMPANY_ID OK' : 'COMPANY_ID MISSING'}`);
 
         // Criar transação no PagFlex
         const authHeader = getAuthHeader();
+
+        // Tentar formato em centavos primeiro, depois em reais se falhar
+        const requestData = {
+            amount: amount_cents, // PagFlex pode esperar em centavos
+            payment_method: 'pix',
+            description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`,
+            customer: {
+                name: 'Doador Anônimo',
+                email: 'doador@orfanatostaclara.org'
+            }
+        };
+
+        console.log('[PagFlex] Request data:', JSON.stringify(requestData));
 
         const response = await axios({
             method: 'POST',
@@ -99,30 +113,25 @@ module.exports = async (req, res) => {
                 'Authorization': authHeader,
                 'Content-Type': 'application/json'
             },
-            data: {
-                amount: amount_cents,
-                payment_method: 'pix',
-                description: `Doação Orfanato Santa Clara - R$ ${(amount_cents / 100).toFixed(2)}`,
-                metadata: {
-                    source: 'website',
-                    timestamp: new Date().toISOString()
-                }
-            }
+            data: requestData
         });
 
         const transaction = response.data;
-        console.log('[PagFlex] Resposta recebida:', JSON.stringify(transaction).substring(0, 200));
+        console.log('[PagFlex] Resposta recebida:', JSON.stringify(transaction).substring(0, 500));
 
         // Extrair código PIX
         const pixCode = transaction.pix_code ||
             transaction.qr_code ||
             transaction.data?.pix_code ||
             transaction.data?.qr_code ||
+            transaction.qr_code_text ||
+            transaction.pix?.qr_code ||
             '';
 
         // Extrair QR Code SVG
         let pixSvg = transaction.qr_code_svg ||
             transaction.data?.qr_code_svg ||
+            transaction.pix?.qr_code_svg ||
             '';
 
         // Se não veio SVG, gerar localmente
@@ -135,9 +144,10 @@ module.exports = async (req, res) => {
         const txid = transaction.id ||
             transaction.transaction_id ||
             transaction.txid ||
+            transaction.data?.id ||
             `tx_${Date.now()}`;
 
-        console.log(`[PagFlex] ✅ PIX gerado! ID: ${txid}`);
+        console.log(`[PagFlex] ✅ PIX gerado! ID: ${txid}, PIX Code: ${pixCode ? 'OK' : 'MISSING'}`);
 
         // Retornar resposta
         return res.status(200).json({
@@ -152,11 +162,17 @@ module.exports = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('[PagFlex] Erro ao gerar PIX:', error.response?.data || error.message);
+        console.error('[PagFlex] Erro completo:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status,
+            url: error.config?.url
+        });
 
         return res.status(500).json({
             ok: false,
-            error: error.response?.data?.message || error.message || 'Erro ao gerar PIX'
+            error: error.response?.data?.message || error.response?.data || error.message || 'Erro ao gerar PIX',
+            details: error.response?.data // Retornar detalhes do erro para debug
         });
     }
 };
