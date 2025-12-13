@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function log(...args) {
-    console.log('[Pixfy]', ...args);
+    console.log('[PagFlex]', ...args);
   }
 
   function openModal() {
