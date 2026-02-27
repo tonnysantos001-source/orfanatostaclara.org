@@ -1,8 +1,0 @@
-{
-    "name": "orfanato-santa-clara",
-    "version": "1.0.0",
-    "dependencies": {
-        "axios": "^1.6.2",
-        "qrcode": "^1.5.3"
-    }
-}
