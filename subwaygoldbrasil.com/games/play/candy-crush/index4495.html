@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  
+<!-- Mirrored from subwaygoldbrasil.com/games/play/candy-crush/index.html?trial=true by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 27 Feb 2026 12:30:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <!-- <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+    <script>
+        if(localStorage.getItem('glmdataCC') !== null) {
+          localStorage.removeItem('glmdataCC');
+        }
+        if(localStorage.getItem('currentPoints') !== null) {
+          localStorage.removeItem('currentPoints');
+        }
+    </script> -->
+    <meta charset="UTF-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name='description' content='Candy Crush is a popular mobile puzzle game where players match colorful candies to progress through levels and earn points.'>
+    <meta name="robots" content="noindex">
+    <title>Candy Crush</title>
+    <meta name="game-slug" content="Mayas-Match" />
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8" />
+    <link rel="preconnect" href="../../../../fonts.googleapis.com/index.html">
+    <link rel="preconnect" href="../../../../fonts.gstatic.com/index.html" crossorigin>
+    <link href="../../../../fonts.googleapis.com/css2d34f.css?family=Fredoka+One&amp;display=swap" rel="stylesheet">
+
+    <script src="game-start3f71.js?v=1.1.1"></script>
+    <script src="js/custom-phaser.min.js"></script>
+    <script src="js/game.min51fc.js?1769317180"></script>
+    <style>
+      @font-face {
+        font-family: 'Gamer';
+            src: url('fonts/ComicSansBold.woff2') format('woff2'),
+                url('fonts/ComicSansBold.woff2') format('opentype');
+      }
+      #focusHelper {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        display: none;
+        background-color: #000000;
+        opacity: 0;
+        top: 0px;
+        left: 0px;
+      }
+      #containerFormBet{
+        position: fixed;
+        font-family: 'Fredoka One', cursive;
+        width: 100vw;
+        height: 100vh;
+        background-image: url(img/banner.webp);
+        background-size: cover;
+        background-position: center center;
+        z-index: 999;
+      }
+      #containerContent {
+        font-family: 'Fredoka One', cursive;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #formBet{
+        position: relative;
+        width: 80vw;
+        max-width: 380px;
+        aspect-ratio: auto;
+        padding: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #formBetBg {
+        width: 100%;
+        pointer-events: none;
+      }
+      #formBetContent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 15% 10% 8%;
+        box-sizing: border-box;
+      }
+      #formBet h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #8b1a6a, 2px -2px 0 #8b1a6a,
+          -2px 2px 0 #8b1a6a, 2px 2px 0 #8b1a6a;
+      }
+      #formBet .default_text {
+        font-family: sans-serif;
+        text-align: center;
+        text-wrap: balance;
+        font-size: 15px;
+        color: #ca2e6c;
+        font-weight: bold;
+        line-height: 1.4;
+        margin: 0;
+      }
+      #startBtnWrap {
+        position: relative;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        max-width: 240px;
+        cursor: pointer;
+        transition: transform 0.15s;
+        margin-top: 5px;
+      }
+      #startBtnWrap.show {
+        display: flex;
+      }
+      #startBtnWrap:hover {
+        transform: scale(1.05);
+      }
+      #startBtnWrap:active {
+        transform: scale(0.97);
+      }
+      #startBtnWrap img {
+        width: 100%;
+      }
+      #startBtnWrap span {
+        position: absolute;
+        font-family: 'Fredoka One', cursive;
+        font-size: 22px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #333, 2px -2px 0 #333,
+          -2px 2px 0 #333, 2px 2px 0 #333,
+          0 -2px 0 #333, 0 2px 0 #333,
+          -2px 0 0 #333, 2px 0 0 #333;
+      }
+
+      /* Pause modal */
+      #pauseOverlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      }
+      #pauseOverlay.active {
+        display: flex;
+      }
+      #pauseModal {
+        position: relative;
+        width: 80vw;
+        max-width: 360px;
+      }
+      #pauseModalBg {
+        width: 100%;
+        pointer-events: none;
+      }
+      #pauseModalContent {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 12% 10% 8%;
+        box-sizing: border-box;
+      }
+      #pauseModal h2 {
+        margin: 0;
+        font-family: 'Fredoka One', cursive;
+        font-size: 28px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #8b1a6a, 2px -2px 0 #8b1a6a,
+          -2px 2px 0 #8b1a6a, 2px 2px 0 #8b1a6a;
+      }
+      #pauseModal p {
+        font-family: sans-serif;
+        font-size: 15px;
+        color: #ca2e6c;
+        font-weight: bold;
+        text-align: center;
+        margin: 0;
+      }
+      #pauseCloseBtn {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 2;
+      }
+      #pauseContinueWrap {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        max-width: 220px;
+        cursor: pointer;
+        transition: transform 0.15s;
+        margin-top: 5px;
+      }
+      #pauseContinueWrap:hover {
+        transform: scale(1.05);
+      }
+      #pauseContinueWrap:active {
+        transform: scale(0.97);
+      }
+      #pauseContinueWrap img {
+        width: 100%;
+      }
+      #pauseContinueWrap span {
+        position: absolute;
+        font-family: 'Fredoka One', cursive;
+        font-size: 20px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #333, 2px -2px 0 #333,
+          -2px 2px 0 #333, 2px 2px 0 #333,
+          0 -2px 0 #333, 0 2px 0 #333,
+          -2px 0 0 #333, 2px 0 0 #333;
+      }
+
+      #finishGameWrap {
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        width: 55vw;
+        max-width: 240px;
+        cursor: pointer;
+        z-index: 998;
+        transition: transform 0.15s;
+      }
+      #finishGameWrap.show {
+        display: flex;
+      }
+      #finishGameWrap:hover {
+        transform: translateX(-50%) scale(1.05);
+      }
+      #finishGameWrap:active {
+        transform: translateX(-50%) scale(0.97);
+      }
+      #finishGameWrap img {
+        width: 100%;
+      }
+      #finishGameWrap span {
+        position: absolute;
+        font-family: 'Fredoka One', cursive;
+        font-size: 20px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #333, 2px -2px 0 #333,
+          -2px 2px 0 #333, 2px 2px 0 #333,
+          0 -2px 0 #333, 0 2px 0 #333,
+          -2px 0 0 #333, 2px 0 0 #333;
+      }
+      /* Result popup */
+      #containerResult {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        font-family: 'Fredoka One', cursive;
+        width: 100vw;
+        height: 100vh;
+        background-image: url(assets/hd/images/modal/bg-clouds.png);
+        background-size: cover;
+        background-position: center center;
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      #containerResult.active {
+        display: flex;
+      }
+
+      /* Cloud banner */
+      #resultTopBanner {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 14vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        z-index: 10;
+      }
+      #resultTopBanner img {
+        width: 80vw;
+        max-width: 420px;
+        flex-shrink: 0;
+      }
+      #resultTopBanner span {
+        position: absolute;
+        bottom: 15%;
+        font-family: 'Fredoka One', cursive;
+        font-size: 16px;
+        color: #ca2e6c;
+        text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+
+      /* Result content (replaces old card) */
+      #resultContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        z-index: 5;
+        margin-top: -8vh;
+      }
+      .candy-text-outline {
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #333, 2px -2px 0 #333,
+          -2px 2px 0 #333, 2px 2px 0 #333,
+          0 -2px 0 #333, 0 2px 0 #333,
+          -2px 0 0 #333, 2px 0 0 #333;
+      }
+      #resultTitle {
+        margin: 0;
+        font-size: 28px;
+        color: #fff;
+        text-shadow:
+          -2px -2px 0 #8b1a6a, 2px -2px 0 #8b1a6a,
+          -2px 2px 0 #8b1a6a, 2px 2px 0 #8b1a6a;
+      }
+
+      /* Pink bar with value */
+      #resultAmountWrap {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 65vw;
+        max-width: 280px;
+      }
+      #resultAmountWrap img {
+        width: 100%;
+      }
+      #resultAmount {
+        position: absolute;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      #resultAmountWrap.loss {
+        width: 85vw;
+        max-width: 400px;
+      }
+      #resultAmountWrap.loss #resultAmount {
+        font-size: 22px;
+      }
+
+      /* Stars */
+      #resultStars {
+        width: 50vw;
+        max-width: 220px;
+        opacity: 0;
+        transform: scale(0.3);
+        transition: none;
+      }
+      #resultStars.show {
+        animation: starsAppear 1.5s ease-out forwards;
+      }
+      @keyframes starsAppear {
+        0% { opacity: 0; transform: scale(0.3) rotate(-15deg); }
+        60% { opacity: 1; transform: scale(1.15) rotate(5deg); }
+        100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      }
+
+      /* Message */
+      #resultMsg {
+        font-family: sans-serif;
+        font-size: 14px;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        text-wrap: balance;
+        max-width: 300px;
+        line-height: 1.4;
+      }
+
+      /* Candy bar button */
+      #resultBtnWrap {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 65vw;
+        max-width: 280px;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      #resultBtnWrap:hover {
+        transform: scale(1.05);
+      }
+      #resultBtnWrap:active {
+        transform: scale(0.97);
+      }
+      #resultBtnWrap img {
+        width: 100%;
+      }
+      #resultBtnWrap span {
+        position: absolute;
+        font-family: 'Fredoka One', cursive;
+        font-size: 22px;
+      }
+
+      /* Happy girl */
+      #happyGirl {
+        position: absolute;
+        bottom: -100%;
+        right: 3%;
+        height: 55vh;
+        max-height: 400px;
+        transform-origin: bottom center;
+        pointer-events: none;
+        z-index: 6;
+        opacity: 0;
+      }
+      #happyGirl.animate {
+        animation: girlEntrance 6s ease-out forwards;
+      }
+      @keyframes girlEntrance {
+        0% { bottom: -100%; opacity: 0; transform: rotate(0deg) translateY(0); }
+        15% { bottom: -130px; opacity: 1; transform: rotate(0deg) translateY(0); }
+        25% { transform: rotate(-14deg) translateY(-35px); }
+        35% { transform: rotate(14deg) translateY(-35px); }
+        45% { transform: rotate(-14deg) translateY(-35px); }
+        55% { transform: rotate(0deg) translateY(0); }
+        70% { bottom: -130px; opacity: 1; transform: rotate(0deg) translateY(0); }
+        100% { bottom: -100%; opacity: 0; transform: rotate(0deg) translateY(0); }
+      }
+
+      /* Sad girl */
+      #sadGirl {
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55vw;
+        max-width: 280px;
+        pointer-events: none;
+        z-index: 6;
+        opacity: 0;
+      }
+      #sadGirl.animate {
+        animation: sadGirlEntrance 4s ease-out forwards;
+      }
+      @keyframes sadGirlEntrance {
+        0% { bottom: -100%; opacity: 0; transform: translateX(-50%); }
+        20% { bottom: 60px; opacity: 1; transform: translateX(-50%); }
+        80% { bottom: 60px; opacity: 1; transform: translateX(-50%); }
+        100% { bottom: -100%; opacity: 0; transform: translateX(-50%); }
+      }
+
+      /* Sparkles */
+      .sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: sparkle 3s ease-out forwards;
+        z-index: 4;
+      }
+      @keyframes sparkle {
+        0% { opacity: 1; transform: scale(0) translate(0, 0); }
+        50% { opacity: 1; transform: scale(1.5) translate(var(--sx), var(--sy)); }
+        100% { opacity: 0; transform: scale(0) translate(var(--ex), var(--ey)); }
+      }
+
+      /* Confetti */
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        pointer-events: none;
+        z-index: 4;
+        animation: confettiFall var(--duration) ease-in forwards;
+      }
+      @keyframes confettiFall {
+        0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+        100% { opacity: 0; transform: translateY(60vh) rotate(var(--rot)) scale(0.5); }
+      }
+
+      @media (min-width: 801px) {
+        #happyGirl {
+          height: 75vh;
+          max-height: 550px;
+        }
+        #sadGirl {
+          width: 70vw;
+          max-width: 400px;
+        }
+        #resultTopBanner span {
+          font-size: 22px;
+        }
+        #resultMsg {
+          font-size: 18px;
+          max-width: 400px;
+        }
+      }
+
+      @media (max-width: 800px) {
+        #finishGameWrap {
+          top: 130px;
+        }
+      }
+    </style>
+  </head>
+  <body onLoad="initGame()">
+    <div id="gameFontPreload">
+      <div style="font-family: ComicSansBold" class="fontPreload">.</div>
+    </div>
+    <div id="focusHelper"></div>
+    <div id="containerFormBet">
+      <div id="containerContent">
+        <div id="formBet">
+          <img id="formBetBg" src="assets/hd/images/modal/classic-modal.png" alt="">
+          <div id="formBetContent">
+            <h1>OBJETIVO</h1>
+            <p class="default_text" id="tutorial">Falha ao carregar informações. Atualize a página e tente novamente</p>
+            <div id="startBtnWrap" onclick="document.getElementById('startGame').click()">
+              <img src="assets/hd/images/modal/candy-button.png" alt="">
+              <span>INICIAR</span>
+            </div>
+            <button id="startGame" style="display: none;"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="finishGameWrap" onclick="document.getElementById('finishGame').click()">
+      <img src="assets/hd/images/modal/candy-button.png" alt="">
+      <span>Retirar 🤑</span>
+    </div>
+    <button id="finishGame" style="display: none;"></button>
+
+
+    <div id="pauseOverlay">
+      <div id="pauseModal">
+        <img id="pauseModalBg" src="assets/hd/images/modal/classic-modal-smaller.png" alt="">
+        <div id="pauseCloseBtn" onclick="closePauseModal()"></div>
+        <div id="pauseModalContent">
+          <h2>PAUSA</h2>
+          <p>Continue jogando e ganhando!</p>
+          <div id="pauseContinueWrap" onclick="closePauseModal()">
+            <img src="assets/hd/images/modal/candy-button.png" alt="">
+            <span>CONTINUAR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="containerResult">
+      <div id="resultTopBanner">
+        <img src="assets/hd/images/modal/cloud.png" alt="">
+        <span>FIM DA PARTIDA</span>
+      </div>
+
+      <div id="resultContent">
+        <h2 id="resultTitle"></h2>
+
+        <div id="resultAmountWrap">
+          <img src="assets/hd/images/modal/pink-bar.png" alt="">
+          <span id="resultAmount" class="candy-text-outline"></span>
+        </div>
+
+        <img src="assets/hd/images/modal/stars.png" id="resultStars" alt="">
+
+        <p id="resultMsg"></p>
+
+        <div id="resultBtnWrap" onclick="location.href='https://subwaygoldbrasil.com/'">
+          <img src="assets/hd/images/modal/candy-button.png" alt="">
+          <span class="candy-text-outline">VOLTAR</span>
+        </div>
+      </div>
+
+      <img src="assets/hd/images/modal/happy-girl.png" id="happyGirl" alt="">
+      <img src="assets/hd/images/modal/girl-sad.png" id="sadGirl" alt="">
+    </div>
+  <script defer src="../../../../static.cloudflareinsights.com/beacon.min.js/v67327c56f0bb4ef8b305cae61679db8f1769101564043" integrity="sha512-rdcWY47ByXd76cbCFzznIcEaCN71jqkWBBqlwhF1SY7KubdLKZiEGeP7AyieKZlGP9hbY/MhGrwXzJC/HulNyg==" data-cf-beacon='{"version":"2024.11.0","token":"c1df63df79284ceb9fa0677f4b708320","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from subwaygoldbrasil.com/games/play/candy-crush/index.html?trial=true by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 27 Feb 2026 12:30:34 GMT -->
+</html>
