@@ -3,6 +3,22 @@
     {
       "src": "**/*.php",
       "use": "vercel-php@0.6.2"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "includes/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "dados/**/*",
+      "use": "@vercel/static"
     }
   ]
 }

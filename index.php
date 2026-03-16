@@ -16,7 +16,8 @@ function contar_visitantes($visitantes_data) {
         }
     }
 
-    $conteudo = file_get_contents($visitantes_data);
+    $arquivo = file_exists('/tmp/visitantes.json') ? '/tmp/visitantes.json' : __DIR__ . '/' . $visitantes_data;
+    $conteudo = @file_get_contents($arquivo);
     $dados = json_decode($conteudo, true);
 
     if ($dados === null) {
@@ -40,7 +41,7 @@ function contar_visitantes($visitantes_data) {
         }
     }
 
-    file_put_contents($visitantes_data, json_encode($dados));
+    @file_put_contents('/tmp/visitantes.json', json_encode($dados));
 
     return $dados["visitantes"];
 }
