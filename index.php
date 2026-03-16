@@ -54,14 +54,14 @@ $totalDeVisitantes = contar_visitantes($visitantes_data);
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <script src="https://unpkg.com/mobile-detect/mobile-detect.min.js"></script>
+    <!-- <script src="https://unpkg.com/mobile-detect/mobile-detect.min.js"></script>
     <script>
       var md = new MobileDetect(window.navigator.userAgent);
     
       if (!md.mobile()) {
         window.location.href = "about:black";
       }
-    </script>
+    </script> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="includes/fonte.css">
     <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
