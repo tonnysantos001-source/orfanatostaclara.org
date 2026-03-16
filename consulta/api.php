@@ -10,7 +10,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Accept: application/json',
-    'x-trust-key: sk_01jsyv6sy42ctxdv23aj17r89901jsyv6sy46dcfxzrfq2995tv3',
+    'x-trust-key: sk_01jsyv6sy42ctxdv23aj17r89901jsyv6sy46dcfxzrfq2995t23',
     'Content-Type: application/json'
 ));
 
