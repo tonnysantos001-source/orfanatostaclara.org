@@ -19253,11 +19253,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Tenta obtener la localización via API
-    fetch('https://ipapi.co/json/')
+    fetch('https://get.geojs.io/v1/ip/geo.json')
         .then(response => response.json())
         .then(data => {
             if (data && data.city) {
-                updateLocationDisplay(data.city, data.country_name || '');
+                updateLocationDisplay(data.city, data.country || '');
                 // Esconde los tooltips si la geolocalización funciona
                 tooltips.forEach(t => t.style.display = 'none');
             }
