@@ -13,27 +13,65 @@
 <script>
 (function() {
     // Mock tracking objects to prevent ReferenceErrors
-    window._etmc = { push: () => {} };
+    window._etmc = { push: function(){} };
     window.dataLayer = window.dataLayer || [];
     window.google_tag_manager = {};
-    window.PWR_INCLUDE = true; // Stop PowerReviews from trying to load
+    window.PWR_INCLUDE = true;
+    window.POWERREVIEWS = { display: { render: function(){} } };
+    window.dw = window.dw || { ac: { _analytics: { collect: function(){} }, setDWAnalytics: function(){} }, __dwAnalytics: { getTracker: function(){ return { trackPageView: function(){} }; } } };
 
-    const blockedDomains = ['google-analytics.com', 'googletagmanager.com', 'cquotient.com', 'alquimio.cloud', 'powerreviews.com', 'igodigital.com', 'cloudflareinsights.com', 'cdn-cgi/rum', 'marketingcloudapis.com', '/on/demandware.store', 'CQRe'];
-    const originalFetch = window.fetch;
+    var blockedDomains = ['google-analytics.com','googletagmanager.com','cquotient.com','alquimio.cloud','powerreviews.com','igodigital.com','cloudflareinsights.com','cdn-cgi/rum','marketingcloudapis.com','/on/demandware.store','CQRe','gretel.min.js'];
+
+    // --- Fetch blocker ---
+    var originalFetch = window.fetch;
     window.fetch = function() {
-        const url = arguments[0];
-        if (typeof url === 'string' && blockedDomains.some(d => url.includes(d))) {
+        var url = arguments[0];
+        if (typeof url === 'string' && blockedDomains.some(function(d){ return url.indexOf(d) !== -1; })) {
             return Promise.resolve(new Response('{}', { status: 200, statusText: 'OK', headers: {'Content-Type': 'application/json'} }));
         }
         return originalFetch.apply(this, arguments);
     };
-    const originalOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function() {
-        const url = arguments[1];
-        if (typeof url === 'string' && blockedDomains.some(d => url.includes(d))) {
-            arguments[1] = 'data:application/json,{}';
+
+    // --- XHR blocker (full mock) ---
+    var OrigXHR = XMLHttpRequest;
+    var originalOpen = OrigXHR.prototype.open;
+    var originalSend = OrigXHR.prototype.send;
+    OrigXHR.prototype.open = function(method, url) {
+        this._blockedByPolicy = (typeof url === 'string' && blockedDomains.some(function(d){ return url.indexOf(d) !== -1; }));
+        if (!this._blockedByPolicy) {
+            return originalOpen.apply(this, arguments);
         }
-        return originalOpen.apply(this, arguments);
+    };
+    OrigXHR.prototype.send = function() {
+        if (this._blockedByPolicy) {
+            var self = this;
+            Object.defineProperty(self, 'readyState', { get: function(){ return 4; } });
+            Object.defineProperty(self, 'status', { get: function(){ return 200; } });
+            Object.defineProperty(self, 'responseText', { get: function(){ return '{}'; } });
+            Object.defineProperty(self, 'response', { get: function(){ return '{}'; } });
+            setTimeout(function(){
+                if (typeof self.onreadystatechange === 'function') self.onreadystatechange();
+                if (typeof self.onload === 'function') self.onload();
+            }, 0);
+            return;
+        }
+        return originalSend.apply(this, arguments);
+    };
+
+    // --- Suppress javascript:void(0) image loads ---
+    var origCreateElement = document.createElement.bind(document);
+    document.createElement = function(tag) {
+        var el = origCreateElement(tag);
+        if (tag.toLowerCase() === 'img' || tag.toLowerCase() === 'script') {
+            var origSetAttr = el.setAttribute.bind(el);
+            el.setAttribute = function(name, value) {
+                if (name === 'src' && typeof value === 'string' && value.indexOf('javascript:') === 0) {
+                    return;
+                }
+                return origSetAttr(name, value);
+            };
+        }
+        return el;
     };
 })();
 </script>
