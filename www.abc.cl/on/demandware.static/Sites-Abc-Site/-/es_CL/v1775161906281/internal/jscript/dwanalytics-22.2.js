@@ -27,3 +27,4 @@ if(q&&Array.isArray(q)){for(i=0;i<q.length;i++){if(q[i]){dw.ac._capture({id:q[i]
 
 
 
+
