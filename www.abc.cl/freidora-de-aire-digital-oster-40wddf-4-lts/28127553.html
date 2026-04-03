@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <!-- Mirrored from www.abc.cl/freidora-de-aire-digital-oster-40wddf-4-lts./28127553.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Apr 2026 22:44:26 GMT -->
@@ -12,12 +12,12 @@
 <link rel="icon" href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAOBAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAADAAQAA">
 <script>
 (function() {
-    const blockedDomains = ['google-analytics.com', 'googletagmanager.com', 'cquotient.com', 'alquimio.cloud', 'powerreviews.com', 'igodigital.com', 'cloudflareinsights.com', 'abc.cl/on/demandware.store'];
+    const blockedDomains = ['google-analytics.com', 'googletagmanager.com', 'cquotient.com', 'alquimio.cloud', 'powerreviews.com', 'igodigital.com', 'cloudflareinsights.com', 'abc.cl/on/demandware.store', 'cdn-cgi/rum', 'marketingcloudapis.com'];
     const originalFetch = window.fetch;
     window.fetch = function() {
         const url = arguments[0];
         if (typeof url === 'string' && blockedDomains.some(d => url.includes(d))) {
-            return Promise.reject(new Error('Blocked by security policy'));
+            return Promise.resolve(new Response('{}', { status: 200, statusText: 'OK', headers: {'Content-Type': 'application/json'} }));
         }
         return originalFetch.apply(this, arguments);
     };
@@ -25,8 +25,7 @@
     XMLHttpRequest.prototype.open = function() {
         const url = arguments[1];
         if (typeof url === 'string' && blockedDomains.some(d => url.includes(d))) {
-            this.send = () => {};
-            return;
+            arguments[1] = 'data:application/json,{}';
         }
         return originalOpen.apply(this, arguments);
     };
@@ -462,7 +461,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
 <!--
     <li class="ms-inline-block">
         <span class="header-services__numbers-wrapper">
-            <img class="header-services__numbers-svg rotate-90" alt="" src="javascript:void(0)"
+            <img class="header-services__numbers-svg rotate-90" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             title="" />
         </span>
     </li>
@@ -507,7 +506,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
 <!--
     <li class="ms-inline-block ms_hide-under-tablet">
         <a href="https://twitter.com/LaPolarChile" target="_blank">
-            <img class="ms-vertical-align header-services__twitter-svg header-services__social-icon" alt="" src="javascript:void(0)" />
+            <img class="ms-vertical-align header-services__twitter-svg header-services__social-icon" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
         </a>
     </li>
 -->
@@ -15898,7 +15897,7 @@ width:60px;
             
 	
 	<div class="content-asset"><!-- dwMarker="content" dwContentID="4d2f765d014553b3d653290085" -->
-		<p class="lp-badge floating-badge lp-font--barlow-medium" style=""><img alt="" height="35" src="javascript:void(0)" title="" width="98" /></p>
+		<p class="lp-badge floating-badge lp-font--barlow-medium" style=""><img alt="" height="35" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" title="" width="98" /></p>
 	</div> <!-- End content-asset -->
 
 
@@ -18184,20 +18183,20 @@ overflow-x:clip;
 <div class="row hide-on-checkout" id="servicios">
 <div class="contenedor" data-no-skeleton="">
 <div class="col-12 col-sm-4">
-<div class="service_item" id="foot_icon_compras"><a href="javascript:void(0)"><img alt="Mi despacho" loading="lazy" src="javascript:void(0)" style="max-width:100px; max-height:70px;" /> </a>
+<div class="service_item" id="foot_icon_compras"><a href="javascript:void(0)"><img alt="Mi despacho" loading="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="max-width:100px; max-height:70px;" /> </a>
 <p><a href="javascript:void(0)"><span>Mis compras</span>Haz seguimiento</a></p>
 <a href="javascript:void(0)"> </a></div>
 </div>
 
 <div class="col-12 col-sm-4">
-<div class="service_item" id="foot_icon_tarjeta"><a href="javascript:void(0)" target="_blank"><img alt="Mi tarjeta abc" src="javascript:void(0)" style="max-width:100px; max-height:70px;" /> </a>
+<div class="service_item" id="foot_icon_tarjeta"><a href="javascript:void(0)" target="_blank"><img alt="Mi tarjeta abc" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="max-width:100px; max-height:70px;" /> </a>
 
 <p><a href="javascript:void(0)" target="_blank"><span>Mi Tarjeta abc</span>Revisa tus movimientos</a></p>
 <a href="javascript:void(0)" target="_blank"> </a></div>
 </div>
 
 <div class="col-12 col-sm-4">
-<div class="service_item" id="foot_icon_contacto"><a href="javascript:void(0)"><img alt="Necesitas ayuda" src="javascript:void(0)" style="max-width:100px; max-height:70px;" /> </a>
+<div class="service_item" id="foot_icon_contacto"><a href="javascript:void(0)"><img alt="Necesitas ayuda" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="max-width:100px; max-height:70px;" /> </a>
 
 <p><a href="javascript:void(0)"><span>&iquest;Necesitas ayuda?</span>Cont&aacute;ctanos</a></p>
 <a href="javascript:void(0)"> </a></div>
@@ -18267,7 +18266,7 @@ home-show="" name="newsletterEmail" placeholder="Ingresa tu email" required="" t
 	<li><a href="https://api.whatsapp.com/send?phone=56998857500">Whatsapp: +56 9 9885 7500</a></li>
 </ul>
 
-<div class="col-12 socialmedia"><a href="https://www.facebook.com/tiendasabc" id="social_fb" target="_blank"><img alt="Facebook" src="javascript:void(0)" /> </a> <a href="https://www.tiktok.com/@tiendas_abc" id="social_tk" target="_blank"> <img alt="TikTok" src="javascript:void(0)" /> </a></div>
+<div class="col-12 socialmedia"><a href="https://www.facebook.com/tiendasabc" id="social_fb" target="_blank"><img alt="Facebook" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /> </a> <a href="https://www.tiktok.com/@tiendas_abc" id="social_tk" target="_blank"> <img alt="TikTok" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /> </a></div>
 </div>
 </div>
 </div>
@@ -18280,7 +18279,7 @@ home-show="" name="newsletterEmail" placeholder="Ingresa tu email" required="" t
 <div class="col-12 col-sm-6">&nbsp;</div>
 </div>
 </section>
-<!-- <script type="text/javascript" src="javascript:void(0)"></script>  --><script type="text/javascript">
+<!-- <script type="text/javascript" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></script>  --><script type="text/javascript">
         // scripts.js
       
       // Función para desplegables del footer
@@ -18930,7 +18929,7 @@ document.addEventListener('DOMContentLoaded', waitForCarrusel);
       link.href = 'https://abc.cl/javascript:void(0)'; //URL del icono
       link.classList.add('custom-tarjeta-link');
       link.innerHTML = `
-        <img src="javascript:void(0)" alt="Tarjeta abc" class="custom-tarjeta-icon">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Tarjeta abc" class="custom-tarjeta-icon">
         <!-- Texto del icono de tarjeta -->
         <span>Paga aquí tu</br><strong> Tarjeta abc</strong></span>
       `;
@@ -18945,7 +18944,7 @@ document.addEventListener('DOMContentLoaded', waitForCarrusel);
     //   link.href = 'https://www.abc.cl/%F0%9F%94%A5-outlet-online/';
     //   link.classList.add('custom-tarjeta-link');
     //   link.innerHTML = `
-    //     <img src="javascript:void(0)" alt="Tarjeta abc" class="custom-tarjeta-icon">
+    //     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Tarjeta abc" class="custom-tarjeta-icon">
     //     <!-- Texto del icono de tarjeta--> 
     //     <!--<span>Outlet</br><strong> online</strong></span>-->
     //   `;
@@ -19013,8 +19012,8 @@ function initEmbeddedMessaging(deployId,channel,pageURL,v_scrt2URL) {
 }
 function loadGenSnippet() {
 	//Passing Web Context to Prechat - BEGIN
-    //Validate tracking page
- <!--
+	//Validate tracking page
+	/*
 <script>
 	var pageURL = 'https://lapolartarjeta.my.site.com/ESWAgentforce1762278470012';
 	var deploymentID = '00D3k000000tOhd';
@@ -19037,10 +19036,14 @@ function loadGenSnippet() {
 	});
 	//Passing Web Context to Prechat - END
 }
+*/
 </script>
+<!--
 <script type="text/javascript" 
  src="../../lapolartarjeta.my.site.com/ESWAgentforce1762278470012/assets/js/bootstrap.min.js" onload="loadGenSnippet()">
 </script>
+-->
+<!--
 <script>
   window.POWER_REVIEWS_CONFIG = {
       locale: "es_MX",
@@ -19049,6 +19052,7 @@ function loadGenSnippet() {
       api_key: "4e3e86e9-b81b-4319-a55f-93c47199f9db",
   };
 </script>
+-->
 
 <script>
   (function() {
@@ -19302,7 +19306,7 @@ document.addEventListener('DOMContentLoaded', function() {
       overflow-x: hidden !important;
   }
   /* Hide broken images that might still be requested from cache/history */
-  img[src*="abc.cl"], img[src="javascript:void(0)"] {
+  img[src*="abc.cl"], img[src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"] {
     display: none !important;
   }
 </style>
@@ -19310,6 +19314,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Mirrored from www.abc.cl/freidora-de-aire-digital-oster-40wddf-4-lts./28127553.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Apr 2026 22:44:45 GMT -->
 </html>
+
 
 
 
