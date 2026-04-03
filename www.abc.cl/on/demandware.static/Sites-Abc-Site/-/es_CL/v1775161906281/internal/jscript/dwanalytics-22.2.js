@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * dwAnalytics - Web Analytics Tracking
  * Based partially on Piwik
  *
@@ -24,3 +24,6 @@ var W=(R[Q][0].slice(0,"pid-".length)!="pid-")&&(H(R[Q])+P.length>l);if(U||W){V.
 }function a(){if(dw.ac){dw.ac._anact=e("__anact");if(dw.ac._anact&&!dw.ac.eventsIsEmpty()){return;}if(dw.ac._anact_nohit_tag||dw.ac._anact){var s=dw.ac._anact_nohit_tag?dw.ac._anact_nohit_tag:dw.ac._anact;var p=JSON.parse(s);if(p){var r=Array.isArray(p)?p[0]:p;if(r&&"viewSearch"==r.activityType&&r.parameters){var t=r.parameters;
 var o={};o.q=t.searchText;o.suggestedSearchText=t.suggestedSearchText;o.persd=t.personalized;o.refs=t.refinements;o.sort=t.sorting_rule;o.imageUUID=t.image_uuid;o.showProducts=t.showProducts;o.searchID=t.searchID;o.locale=t.locale;o.queryLocale=t.queryLocale;dw.ac.applyContext({searchData:o});var q=t.products;
 if(q&&Array.isArray(q)){for(i=0;i<q.length;i++){if(q[i]){dw.ac._capture({id:q[i].id,type:dw.ac.EV_PRD_SEARCHHIT});}}}}}}}}return{getTracker:function(o){return new k(o);}};}();}
+
+
+

@@ -1,4 +1,4 @@
-if ("undefined" === typeof(_etmc)) {
+﻿if ("undefined" === typeof(_etmc)) {
   var _etmc = [];
 }
 
@@ -287,3 +287,7 @@ var _etmc = {
 };
 
 _etmc.setup(_etmc_temp);
+
+
+
+

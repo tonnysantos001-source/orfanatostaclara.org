@@ -1,4 +1,4 @@
-(function(p){if(typeof p.ac==="undefined"){return;}function B(D){var H=document.cookie.split(";");for(var G=0;G<H.length;G++){var F=H[G].indexOf("=");if(F!=-1){var E=t(H[G].substring(0,F));if(D(E)){return t(unescape(H[G].substring(F+1)));}}}return null;}function t(D){return D.replace(/^\s\s*/,"").replace(/\s\s*$/,"");
+﻿(function(p){if(typeof p.ac==="undefined"){return;}function B(D){var H=document.cookie.split(";");for(var G=0;G<H.length;G++){var F=H[G].indexOf("=");if(F!=-1){var E=t(H[G].substring(0,F));if(D(E)){return t(unescape(H[G].substring(F+1)));}}}return null;}function t(D){return D.replace(/^\s\s*/,"").replace(/\s\s*$/,"");
 }function z(E,G,D){var F=E+"="+escape(G)+";path=/";if(D!=-1){F+=";expires="+expires.toGMTString();}document.cookie=F;}function n(F){var D=function(I){if(I<32){return"";}else{return"%"+new Number(I).toString(16).toUpperCase();}};var G="";for(var E=0;E<F.length;E++){var H=F.charCodeAt(E);if(((H>=97)&&(H<=122))||((H>=65)&&(H<=90))||((H>=48)&&(H<=57))||(H==46)||(H==45)||(H==42)||(H==95)){G+=F.charAt(E);
 }else{if(H==32){G+="+";}else{if(H<128){G+=D(H);}else{if((H>=128)&&(H<2048)){G+=D((H>>6)|192);G+=D((H&63)|128);}else{if((H>=2048)&&(H<65536)){G+=D((H>>12)|224);G+=D(((H>>6)&63)|128);G+=D((H&63)|128);}else{if(H>=65536){G+=D((H>>18)|240);G+=D(((H>>12)&63)|128);G+=D(((H>>6)&63)|128);G+=D((H&63)|128);}}}}}}}return G;
 }function g(){var D=function(E){return(E.length>5)&&(E.substring(0,5)==="dwac_");};return B(D);}var C=(function(){if(p.ac._analytics_enabled==="false"){return{enabled:false,dwEnabled:false};}var E=g();if(E==null){return{visitorID:"__ANNONYMOUS__",customer:"__ANNONYMOUS__",siteCurrency:"",sourceCode:"",enabled:"true",timeZone:p.ac._timeZone,dwEnabled:"true",encoding:"ISO-8859-1"};
@@ -14,3 +14,6 @@ l.clear();p.ac._events.length=0;}};function s(){if(!m){return;}if(w){clearTimeou
 }p.ac._submitTimeout=setTimeout(p.ac._handleCollectedData,500);};(function a(D){if(document.readyState==="complete"){setTimeout(D,1);}if(document.addEventListener){DOMContentLoaded=function(){document.removeEventListener("DOMContentLoaded",DOMContentLoaded,false);D();};document.addEventListener("DOMContentLoaded",DOMContentLoaded,false);
 window.addEventListener("load",D,false);}else{if(document.attachEvent){DOMContentLoaded=function(){if(document.readyState==="complete"){document.detachEvent("onreadystatechange",DOMContentLoaded);D();}};document.attachEvent("onreadystatechange",DOMContentLoaded);window.attachEvent("onload",D);}}})(function(){p.ac._handleCollectedData();
 });}((window.dw||{})));
+
+
+

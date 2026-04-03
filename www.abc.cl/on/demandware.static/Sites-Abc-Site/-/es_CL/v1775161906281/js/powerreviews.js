@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     const interval = 1000;
     const maxAttempts = 30;
     var apiLoadAttempts = 0;
@@ -92,4 +92,8 @@
 
     intervalPR = setInterval(checkIfApiIsLoaded, interval);
 }());
+
+
+
+
 
