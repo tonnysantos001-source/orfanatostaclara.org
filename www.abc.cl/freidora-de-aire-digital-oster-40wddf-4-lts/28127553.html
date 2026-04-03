@@ -12,7 +12,13 @@
 <link rel="icon" href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAOBAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAADAAQAA">
 <script>
 (function() {
-    const blockedDomains = ['google-analytics.com', 'googletagmanager.com', 'cquotient.com', 'alquimio.cloud', 'powerreviews.com', 'igodigital.com', 'cloudflareinsights.com', 'abc.cl/on/demandware.store', 'cdn-cgi/rum', 'marketingcloudapis.com'];
+    // Mock tracking objects to prevent ReferenceErrors
+    window._etmc = { push: () => {} };
+    window.dataLayer = window.dataLayer || [];
+    window.google_tag_manager = {};
+    window.PWR_INCLUDE = true; // Stop PowerReviews from trying to load
+
+    const blockedDomains = ['google-analytics.com', 'googletagmanager.com', 'cquotient.com', 'alquimio.cloud', 'powerreviews.com', 'igodigital.com', 'cloudflareinsights.com', 'cdn-cgi/rum', 'marketingcloudapis.com', '/on/demandware.store', 'CQRe'];
     const originalFetch = window.fetch;
     window.fetch = function() {
         const url = arguments[0];
@@ -465,7 +471,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
             title="" />
         </span>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
     <!--li class="ms-inline-block">
         <a class="header-services__anchor" href="tel:2-2382-2200">2 2382 2200 </a>
@@ -477,7 +483,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
     <li class="ms-inline-block">
         <a class="header-services__anchor" href="tel:600-391-1000"> 600 391 1000</a>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
     <li class="ms-inline-block">
         <a class="header-services__anchor" href="javascript:void(0)"><!-- removed --> </a>
@@ -491,7 +497,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
             </span>
         </a>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
     <li class="ms-inline-block ms_hide-under-tablet">
@@ -501,7 +507,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
             </span>
         </a>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
     <li class="ms-inline-block ms_hide-under-tablet">
@@ -509,7 +515,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
             <img class="ms-vertical-align header-services__twitter-svg header-services__social-icon" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
         </a>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
     <li class="ms-inline-block ms_hide-under-tablet">
@@ -519,7 +525,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
             </span>
         </a>
     </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 </ul>
 	</div> <!-- End content-asset -->
@@ -538,17 +544,17 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
 <li class="ms-inline-block">
     <a style="color: #3c3c3c" class="header-services__anchor" href="javascript:void(0)"> Abcdin</a>
 </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
 <li class="ms-vertical-algin header-services__anchor-divider ms_hide-under-desktop"> | </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
 <li class="ms-inline-block">
     <a style="color: #3c3c3c" class="header-services__anchor" href="javascript:void(0)" target="_blank">Tarjeta La Polar</a>
 </li>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <!--
 <li class="ms-vertical-algin header-services__anchor-divider ms_hide-under-desktop"> | </li>
@@ -563,7 +569,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
  <li class="ms-inline-block ms_hide-under-desktop">
     <a style="color: #3c3c3c" class="header-services__anchor" href=https://www.abc.cl/img/pdf/contratoSCG_012016.pdf?_ga=2.82527519.804157059.1552587880-280800148.1551990099>Contrato SCG</a>
 </li> 
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
 <li class="ms-vertical-algin header-services__anchor-divider ms_hide-under-desktop"> | </li>
 	</div> <!-- End content-asset -->
@@ -788,7 +794,7 @@ CQuotient.trackViewProduct = function(/* Object */ cqParamData){
                                         </span>
                                     </a>
                                 </div>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
                             
 
                             <div class="header-utility tracking-order d-none d-md-block">
@@ -19036,13 +19042,12 @@ function loadGenSnippet() {
 	});
 	//Passing Web Context to Prechat - END
 }
-*/
 </script>
 <!--
 <script type="text/javascript" 
  src="../../lapolartarjeta.my.site.com/ESWAgentforce1762278470012/assets/js/bootstrap.min.js" onload="loadGenSnippet()">
 </script>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 <!--
 <script>
   window.POWER_REVIEWS_CONFIG = {
@@ -19052,48 +19057,11 @@ function loadGenSnippet() {
       api_key: "4e3e86e9-b81b-4319-a55f-93c47199f9db",
   };
 </script>
--->
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 
-<script>
-  (function() {
-    // get homepage element
-    var homeMainElement = document.getElementsByClassName("home-main");
+<!-- PowerReviews loader disabled for static deployment -->
 
-    // check if not on homepage
-    if (homeMainElement.length === 0) {
-      if (!window.PWR_INCLUDE) {
-        var d = document;
-        var t = 'script';
-        var i = function(src) {
-          var g = d.createElement(t),
-              ss = d.getElementsByTagName(t),
-              s = ss[ss.length - 1];
-          g.src = src;
-          s.parentNode.insertBefore(g, s);
-        }
-        i('../../ui.powerreviews.com/stable/4.0/ui.js');
-        i("../on/demandware.static/Sites-Abc-Site/-/es_CL/v1775161906281/js/powerreviews.js");
-        window.PWR_INCLUDE = true;
-      }
-    }
-  })();
-</script>
-<script type="text/javascript">
-try {
-	_etmc.push(['setOrgId', "515014059" ]);
-} catch (e) { console.error(e); }
-</script>
-<script type="text/javascript">
-try {
-	_etmc.push(['setUserInfo', {"email":"ghlafhuvbNKb32xJpjed0C3McF"} ]);
-	_etmc.push(['trackPageView', {"item":"28127553"} ]);
-} catch (e) { console.error(e); }
-</script>
--->
-</footer>553"} ]);
-} catch (e) { console.error(e); }
-</script>
-<!-- End Marketing Cloud Analytics - noncached -->
+
 
 </footer>
 
@@ -19186,27 +19154,12 @@ try {
 <div class="error-messaging"></div>
 <div class="modal-background"></div>
 
-<!-- Demandware Analytics code 1.0 (body_end-analytics-tracking-asynch.js) -->
-<script type="text/javascript">//<!--
-/* <![CDATA[ */
-function trackPage() {
-    try{
-        var trackingUrl = "javascript:void(0)";
-        var dwAnalytics = dw.__dwAnalytics.getTracker(trackingUrl);
-        if (typeof dw.ac == "undefined") {
-            dwAnalytics.trackPageView();
-        } else {
-            dw.ac.setDWAnalytics(dwAnalytics);
-        }
-    }catch(err) {};
-}
-/* ]]> */
-// -->
-</script>
-<script type="text/javascript" src="../on/demandware.static/Sites-Abc-Site/-/es_CL/v1775161906281/internal/jscript/dwanalytics-22.2.js" async="async" onload="trackPage()"></script>
-<!-- Demandware Active Data (body_end-active_data.js) -->
-<script src="../on/demandware.static/Sites-Abc-Site/-/es_CL/v1775161906281/internal/jscript/dwac-21.7.js" type="text/javascript" async="async"></script><!-- CQuotient Activity Tracking (body_end-cquotient.js) -->
+<!-- Demandware Analytics code 1.0 (body_end-analytics-tracking-asynch.js) 
+<script type="text/javascript">/* <![CDATA[ */ function trackPage() {} /* ]]> */ </script>
+<script type="text/javascript" src="../on/demandware.static/Sites-Abc-Site/-/es_CL/v1775161906281/internal/jscript/dwanalytics-22.2.js" async="async"></script>
+<script src="../on/demandware.static/Sites-Abc-Site/-/es_CL/v1775161906281/internal/jscript/dwac-21.7.js" type="text/javascript" async="async"></script>
 <script src="../../cdn.cquotient.com/js/v2/gretel.min.js" type="text/javascript" async="async"></script>
+<!-- Marketing Cloud Analytics disabled for static deployment -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9e635b9eaa4ff2b6","version":"2025.9.1","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"de5e537a93aa4ca6b82c966927c8d112","b":1}' crossorigin="anonymous"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
